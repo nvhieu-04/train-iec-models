@@ -6,12 +6,7 @@ class CassvaImgClassifier(nn.Module):
     def __init__(self, model_arch, n_class, pretrained=False):
         super().__init__()
         self.model = timm.create_model(model_arch, pretrained=pretrained)
-
-        #efficientNet initilization
-       # n_features = self.model.classifier.in_features
-        #self.model.classifier = nn.Linear(n_features, n_class)
-
-        #ViT initilization
+        
         self.model.head = nn.Linear(self.model.head.in_features, n_class)
         '''
         self.model.classifier = nn.Sequential(
@@ -23,3 +18,4 @@ class CassvaImgClassifier(nn.Module):
     def forward(self, x):
         x = self.model(x)
         return x
+    
