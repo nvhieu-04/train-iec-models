@@ -245,11 +245,11 @@ class IEC(Dataset):
                 # extracting all the files
                 print('Extracting all the files now...')
                 zip.extractall('./model_data/')
-            train = pd.read_csv('/content/model_data/train.csv')
+            train = pd.read_csv('/content/train-iec-models/model_data/train.csv')
             
             return local_filename
 
-    def prepare_dataloader(df, trn_idx, val_idx, data_root='/content/model_data/train_images'):
+    def prepare_dataloader(df, trn_idx, val_idx, data_root='/content/train-iec-models/model_data/train_images'):
     
         from catalyst.data.sampler import BalanceClassSampler
     
@@ -375,7 +375,7 @@ class IEC(Dataset):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = True
     
-    def get_img(path = '/content/model_data/train_images/'):
+    def get_img(path = '/content/train-iec-models/model_data/train_images/'):
         im_bgr = cv2.imread(path)
         im_rgb = im_bgr[:, :, [2, 1, 0]]
         return im_rgb
