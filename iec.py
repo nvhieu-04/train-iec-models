@@ -125,7 +125,7 @@ class IEC(Dataset):
                  fmix_params={
                      'alpha': 1., 
                      'decay_power': 3., 
-                     'shape': (IEC.CFG['img_size'], IEC.CFG['img_size']),
+                     'shape': (CFG['img_size'], CFG['img_size']),
                      'max_soft': True, 
                      'reformulate': False
                  },
