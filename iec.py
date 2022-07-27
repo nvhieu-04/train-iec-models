@@ -288,6 +288,7 @@ class IEC(Dataset):
             imgs = imgs.to(device).float()
             image_labels = image_labels.to(device).long()
             print(imgs,image_labels)
+            scaler = GradScaler()
             with autocast():
           
                 image_preds = model(imgs)   #output = model(input)
