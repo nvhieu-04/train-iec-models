@@ -233,7 +233,20 @@ class IEC(Dataset):
             return img
 
     def download(name = 'all'):
-            url = 'https://iec-download.herokuapp.com/download_models'
+            if(name == 'Corn Dataset'):
+                 url = 'https://iec-download.herokuapp.com/Corn-Dataset'
+            elif(name == 'Potato Dataset'):
+                url = 'https://iec-download.herokuapp.com/Potato-Dataset'
+            elif(name == 'Wheat Dataset'):
+                url = 'https://iec-download.herokuapp.com/Wheat-Dataset'
+            elif (name == 'Rice Dataset'):
+                url = 'https://iec-download.herokuapp.com/Rice-Dataset'
+            elif (name == 'iCassava Dataset'):
+                url = 'https://iec-download.herokuapp.com/iCassava-Dataset'
+            else:
+                print('There are no dataset you want. Try again.')
+                return
+            
             local_filename = url.split('/')[-1]+'.zip'
             r = requests.get(url, allow_redirects=True)
             open(local_filename, 'wb').write(r.content)
