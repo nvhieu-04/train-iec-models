@@ -234,15 +234,15 @@ class IEC(Dataset):
 
     def download(name = 'all'):
             if(name == 'Corn Dataset'):
-                 url = 'https://iec-download.herokuapp.com/Corn-Dataset'
+                 url = 'http://20.219.152.250/Corn-Dataset'
             elif(name == 'Potato Dataset'):
-                url = 'https://iec-download.herokuapp.com/Potato-Dataset'
+                url = 'http://20.219.152.250/Potato-Dataset'
             elif(name == 'Wheat Dataset'):
-                url = 'https://iec-download.herokuapp.com/Wheat-Dataset'
+                url = 'http://20.219.152.250/Wheat-Dataset'
             elif (name == 'Rice Dataset'):
-                url = 'https://iec-download.herokuapp.com/Rice-Dataset'
+                url = 'http://20.219.152.250/Rice-Dataset'
             elif (name == 'iCassava Dataset'):
-                url = 'https://iec-download.herokuapp.com/iCassava-Dataset'
+                url = 'http://20.219.152.250/iCassava-Dataset'
             else:
                 print('There are no dataset you want. Try again.')
                 return
