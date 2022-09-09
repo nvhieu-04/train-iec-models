@@ -232,35 +232,30 @@ class IEC(Dataset):
         else:
             return img
 
-    def download(name = 'all'):
-            if(name == 'Corn Dataset'):
-                 url = 'http://20.219.152.250/Corn-Dataset'
-            elif(name == 'Potato Dataset'):
-                url = 'http://20.219.152.250/Potato-Dataset'
-            elif(name == 'Wheat Dataset'):
-                url = 'http://20.219.152.250/Wheat-Dataset'
-            elif (name == 'Rice Dataset'):
-                url = 'http://20.219.152.250/Rice-Dataset'
-            elif (name == 'iCassava Dataset'):
-                url = 'http://20.219.152.250/iCassava-Dataset'
-            else:
+    def download(name = 'errors'):
+            if(name == 'errors'):
+                datasetsAvailable = [' Plant Village Dataset','Minileaves Dataset','An Image Dataset for Field Crop Disease Identification','A Data Repository of Leaf Images Dataset','PlantDoc Dataset','PDDB Dataset','XDB Dataset','The Plantaek Dataset','Red Rot Sugarcane Disease Leaf Dataset','Sugarcane Disease Dataset','Corn Leaf Infection Dataset','Corn Leaf Diseases Dataset','Yellow Rush 19 Dataset','Wheat Disease Detection Dataset','Wheat Fungi Diseases Dataset','Wheat Leaf Dataset','Rice Leaf Disease Image Samples Dataset','Rice Diseases Image Dataset','Rice Disease Dataset','The Dhan-Shomadhan Dataset',
+                'Rice Leaf Diseases Dataset','The Potato Leaf Dataset','The JMuBEN 3 Dataset','The Soybean Leaf Dataset','iCassava 2019 Dataset',
+                'The Tomato Leaf Image Dataset','Plant Pathology 2020 Dataset','The Cotton Leaf Disease Dataset','The Cotton Leaf Dataset',
+                'HERMOS Dataset','Conghua Citrus Leaf 2020 Dataset','A Citrus Fruits and Leaves Dataset','Citrus Leaves Prepared Dataset','LeLePhid Dataset','DiaMOS Plant Dataset','BRACOL Dataset','RoCoLe Dataset' ]
                 print('There are no dataset you want. Try again.')
+                print('Available datasets are: ')
+                for i in range(len(datasetsAvailable)):
+                    print(i +'. '+ datasetsAvailable[i])
                 return
-            
-            local_filename = url.split('/')[-1]+'.zip'
-            r = requests.get(url, allow_redirects=True)
-            open(local_filename, 'wb').write(r.content)
-            print('Download models complete.')
-            
-            with ZipFile(local_filename, 'r') as zip:
-                # printing all the contents of the zip file
-                #zip.printdir()
-                # extracting all the files
-                print('Extracting all the files now...')
-                zip.extractall('./model_data/')
-            train = pd.read_csv('/content/train-iec-models/model_data/train.csv')
-            
-            return local_filename
+            else:
+                nameDownload = name.replace(' ', '-')
+                url = 'server.com/' + nameDownload
+                local_filename = url.split('/')[-1]+'.zip'
+                r = requests.get(url, allow_redirects=True)
+                open(local_filename, 'wb').write(r.content)
+                print('Download '+ name +'complete.')
+                
+                with ZipFile(local_filename, 'r') as zip:
+                    print('Extracting all the files now...')
+                    zip.extractall('./model_data/')
+                # train = pd.read_csv('/content/train-iec-models/model_data/train.csv')
+                return local_filename
 
     def prepare_dataloader(df, trn_idx, val_idx, data_root='/content/train-iec-models/model_data/train_images'):
     
