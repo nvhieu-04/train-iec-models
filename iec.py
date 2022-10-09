@@ -1,4 +1,5 @@
 from glob import glob
+import imp
 from sklearn.model_selection import GroupKFold, StratifiedKFold
 import cv2
 from skimage import io
@@ -38,6 +39,7 @@ from io import BytesIO
 import pandas as pd
 import numpy as np
 import json
+import sys
 from sklearn.metrics import classification_report
 from sklearn.metrics import f1_score
 from sklearn.metrics import roc_auc_score
@@ -245,12 +247,28 @@ class IEC(Dataset):
                 return
             else:
                 nameDownload = name.replace(' ', '-')
-                url = 'server.com/' + nameDownload
+                url = 'http://20.219.152.250/' + nameDownload
                 local_filename = url.split('/')[-1]+'.zip'
-                r = requests.get(url, allow_redirects=True)
-                open(local_filename, 'wb').write(r.content)
-                print('Download '+ name +'complete.')
-                
+                print('Starting Download, Please wait.....')
+                chunk_size = 4096
+                r = requests.get(url, stream=True)
+                with open(local_filename, 'wb') as f:
+                   print("Downloading %s" % local_filename)
+                   response = requests.get(url, stream=True)
+                   total_length = response.headers.get('content-length')
+                   if total_length is None: # no content length header
+                      f.write(response.content)
+                   else:
+                        dl = 0
+                        total_length = int(total_length)
+                        for data in response.iter_content(int(total_length / 100)):
+                            dl += len(data)
+                            f.write(data)
+                            done = int(50 * dl / total_length)
+                            sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50-done))  )
+                            sys.stdout.flush()
+
+                print('\nDownload '+ name +' complete.')
                 with ZipFile(local_filename, 'r') as zip:
                     print('Extracting all the files now...')
                     zip.extractall('./model_data/')
