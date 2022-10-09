@@ -376,7 +376,7 @@ class IEC(Dataset):
         image_preds_all = np.concatenate(image_preds_all)
         image_targets_all = np.concatenate(image_targets_all)
         print('validation multi-class accuracy = {:.4f}'.format((image_preds_all==image_targets_all).mean()))
-        print ("Classification report: ", (classification_report(image_targets_all, image_preds_all)))
+        print ("Classification report: ", (classification_report(image_targets_all, image_preds_all,labels=[0 ,1, 2, 3])))
         print ("F1 micro averaging:",(f1_score(image_targets_all, image_preds_all, average='micro')))
 
 
