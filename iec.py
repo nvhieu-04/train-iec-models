@@ -313,7 +313,7 @@ class IEC(Dataset):
         for step, (imgs, image_labels) in pbar:
             imgs = imgs.to(device).float()
             image_labels = image_labels.to(device).long()
-            print(imgs,image_labels)
+            #print(imgs,image_labels)
             scaler = GradScaler()
             with autocast():
           
